@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Area;
+use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
     /**
@@ -11,10 +12,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -23,6 +24,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $areas = Area::get()->toTree();
+        return view('home', compact('areas'));
+    }
+
+    public function country(){
+
+        $data = Http::get('https://restcountries.com/v3.1/all')->json();
+        //return view('country', ['data'=>$data]);
+       dd ($data);
+    //  dd($data['data']['DZ']['country']);
+
+   
     }
 }

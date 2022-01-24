@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/user/area/{area}', [App\Http\Controllers\User\AreaController::class, 'store'])->name('user.area.store');\
+Route::get('/country', [App\Http\Controllers\HomeController::class, 'country']);
