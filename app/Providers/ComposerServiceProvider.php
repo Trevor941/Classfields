@@ -24,6 +24,6 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('*', AreaComposer::class);
+        View::composer('*', \App\Http\ViewComposer\AreaComposer::class);
     }
 }

@@ -20,5 +20,17 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/user/area/{area}', [App\Http\Controllers\User\AreaController::class, 'store'])->name('user.area.store');\
+Route::get('/user/area/{area}', [App\Http\Controllers\User\AreaController::class, 'store'])->name('user.area.store');
 Route::get('/country', [App\Http\Controllers\HomeController::class, 'country']);
+
+Route::group(['prefix' => '/{area}'], function(){
+
+
+    Route::group(['prefix' => '/categories'], function(){
+         Route::get('/', [App\Http\Controllers\Category\CategoryController::class, 'index'])->name('category.index');
+
+         Route::group(['prefix' => '/{category}', function (){
+             Route::get('/listings', [App\Http\Controllers\Listing\ListingController::class, 'index'])->name('listings.index');
+         }]);
+    });
+});
